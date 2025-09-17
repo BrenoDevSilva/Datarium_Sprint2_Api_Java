@@ -74,6 +74,9 @@ A API oferece endpoints completos de CRUD para as entidades `Cliente` e `Ativo`.
           "objetivo": "LONGO_PRAZO"
         }
         ```
+        * **Observação**: Os campos `perfilInvestidor` e `objetivo` devem ser preenchidos com um dos valores definidos na API para que a validação funcione corretamente.
+        * **Perfil do Investidor**: `CONSERVADOR`, `MODERADO`, `AGRESSIVO`
+        * **Objetivo**: `CURTO_PRAZO`, `MEDIO_PRAZO`, `LONGO_PRAZO`
 
 * **Listar todos os Clientes (`GET`)**:
     * **URL**: `http://localhost:8080/clientes`
@@ -90,6 +93,9 @@ A API oferece endpoints completos de CRUD para as entidades `Cliente` e `Ativo`.
           "objetivo": "MEDIO_PRAZO"
         }
         ```
+        * **Observação**: Os campos `perfilInvestidor` e `objetivo` devem ser preenchidos com um dos valores definidos na API para que a validação funcione corretamente.
+        * **Perfil do Investidor**: `CONSERVADOR`, `MODERADO`, `AGRESSIVO`
+        * **Objetivo**: `CURTO_PRAZO`, `MEDIO_PRAZO`, `LONGO_PRAZO`
 
 * **Deletar um Cliente (`DELETE`)**:
     * **URL**: `http://localhost:8080/clientes/{id}`
