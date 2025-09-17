@@ -2,6 +2,7 @@ package com.datarium.api.controller;
 
 import com.datarium.api.model.Ativo;
 import com.datarium.api.service.AtivoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +32,12 @@ public class AtivoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Ativo salvarAtivo(@RequestBody Ativo ativo) {
+    public Ativo salvarAtivo(@RequestBody @Valid Ativo ativo) {
         return ativoService.salvarAtivo(ativo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Ativo> atualizarAtivo(@PathVariable Long id, @RequestBody Ativo ativo) {
+    public ResponseEntity<Ativo> atualizarAtivo(@PathVariable Long id, @RequestBody @Valid Ativo ativo) {
         if (!ativoService.buscarAtivoPorId(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }

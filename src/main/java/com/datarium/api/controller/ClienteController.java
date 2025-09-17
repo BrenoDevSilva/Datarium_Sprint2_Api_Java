@@ -2,6 +2,7 @@ package com.datarium.api.controller;
 
 import com.datarium.api.model.Cliente;
 import com.datarium.api.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +32,12 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente salvarCliente(@RequestBody Cliente cliente) {
+    public Cliente salvarCliente(@RequestBody @Valid Cliente cliente) {
         return clienteService.salvarCliente(cliente);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody @Valid Cliente cliente) {
         if (!clienteService.buscarClientePorId(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
