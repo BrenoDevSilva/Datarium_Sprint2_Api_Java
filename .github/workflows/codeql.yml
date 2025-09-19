@@ -150,3 +150,4 @@ jobs:
         with:
           target: 'http://localhost:8080'
           fail_action: 'false'
+          artifact_name: owasp-zap-report
