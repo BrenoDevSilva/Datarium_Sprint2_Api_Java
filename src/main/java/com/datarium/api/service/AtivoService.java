@@ -29,4 +29,8 @@ public class AtivoService {
     public void deletarAtivo(Long id) {
         ativoRepository.deleteById(id);
     }
+
+    public List<Ativo> buscarAtivosPorClienteId(Long clienteId) {
+        return ativoRepository.findByClienteId(clienteId);
+    }
 }

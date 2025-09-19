@@ -30,6 +30,11 @@ public class AtivoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/cliente/{clienteId}")
+    public List<Ativo> buscarAtivosPorClienteId(@PathVariable Long clienteId) {
+        return ativoService.buscarAtivosPorClienteId(clienteId);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Ativo salvarAtivo(@RequestBody @Valid Ativo ativo) {

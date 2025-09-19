@@ -29,4 +29,8 @@ public class ClienteService {
     public void deletarCliente(Long id) {
         clienteRepository.deleteById(id);
     }
+
+    public Optional<Cliente> buscarClientePorEmailESenha(String email, String senha) {
+        return clienteRepository.findByEmailAndSenha(email, senha);
+    }
 }

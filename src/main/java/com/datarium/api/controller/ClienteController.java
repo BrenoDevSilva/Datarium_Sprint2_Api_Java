@@ -30,6 +30,13 @@ public class ClienteController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<Cliente> login(@RequestBody Cliente cliente) {
+        Optional<Cliente> clienteLogado = clienteService.buscarClientePorEmailESenha(cliente.getEmail(), cliente.getSenha());
+        return clienteLogado.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente salvarCliente(@RequestBody @Valid Cliente cliente) {
