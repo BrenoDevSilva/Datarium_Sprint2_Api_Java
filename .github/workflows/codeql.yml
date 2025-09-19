@@ -101,12 +101,13 @@ jobs:
     name: "OWASP ZAP Scan"
     runs-on: ubuntu-latest
     needs: analyze # Ensures this job runs after the 'analyze' job
+    container:
+      image: 'ghcr.io/zaproxy/zaproxy:stable'
+      options: '--user root'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Add steps to build and start your application.
-      # This is an example for a Java application; replace it with the commands for your specific project.
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -118,19 +119,13 @@ jobs:
         run: mvn clean install
 
       - name: Start application server
-        # The 'jar' file name will vary depending on your project.
         run: java -jar target/your-application-name.jar &
 
       - name: Wait for the application to start
-        # Give the server a few seconds to boot up.
         run: sleep 10
 
       - name: Run ZAP Scan
         uses: zaproxy/action-full-scan@v0.10.0
         with:
-          # The URL of your running application. Use 'http://localhost:<port>'.
-          # Replace '<port>' with the port your application listens on.
           target: 'http://localhost:8080'
-          # Optional: configure the level of confidence for vulnerabilities to be reported.
-          # For example, 'HIGH' will only report high-confidence issues.
           fail_on_issue: 'false'
