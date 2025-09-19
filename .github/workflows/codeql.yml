@@ -125,6 +125,8 @@ jobs:
     name: "OWASP ZAP Scan"
     runs-on: ubuntu-latest
     needs: build_app # Depende do job 'build_app'
+    permissions:
+      issues: write
     steps:
       - name: Download JAR artifact
         uses: actions/download-artifact@v4
