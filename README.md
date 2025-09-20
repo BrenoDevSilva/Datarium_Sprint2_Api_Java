@@ -1,10 +1,6 @@
-# Datarium API
-
 ### **Visão Geral**
 
-O **Datarium** é uma plataforma de assessoramento virtual de investimentos, desenvolvida para o desafio da **XP Inc.** e FIAP. Utilizando inteligência artificial explicável (XAI) e análise de perfil, a ferramenta oferece recomendações personalizadas com foco em segurança, transparência e conformidade com a LGPD.
-
-A **API RESTful** foi construída como o back-end do projeto, gerenciando os dados de clientes e ativos, e servindo como a base para a aplicação mobile.
+O **Datarium API** é o componente de back-end do projeto Datarium, uma plataforma de assessoramento virtual de investimentos, desenvolvida para o desafio da **XP Inc.** e FIAP. Esta aplicação é uma API RESTful desenvolvida em Java com Spring Boot, responsável pela lógica de negócio, persistência de dados (CRUD) e autenticação de usuários, comunicando-se com o banco de dados Oracle da FIAP. O projeto também prioriza a cibersegurança e a conformidade com a LGPD.
 
 ### **Participantes do Grupo**
 
@@ -15,22 +11,25 @@ A **API RESTful** foi construída como o back-end do projeto, gerenciando os dad
 
 ### **Tecnologias Utilizadas**
 
-* **Java 17**: Linguagem de programação para o back-end.
-* **Spring Boot**: Framework para a construção da API.
-* **Spring Data JPA**: Para a persistência de dados.
-* **Maven**: Gerenciador de dependências.
-* **Lombok**: Biblioteca para redução de código.
-* **Oracle Database**: Banco de dados para a persistência dos dados.
+* **Java 17**
+* **Spring Boot** (Spring Data JPA, Spring Web)
+* **Maven**
+* **Oracle Database**
+* **GitHub Actions** (para testes de segurança)
 
 ### **Diagramas**
 
 * **Diagrama de Arquitetura em Camadas**
     <img width="922" height="357" alt="image" src="https://github.com/user-attachments/assets/f341329b-0578-496f-b0b5-c4f9b70bac70" />
 
-
 * **Diagrama de Entidades (ER ou UML)**
-    <img width="1258" height="415" alt="image" src="https://github.com/user-attachments/assets/66a2b96f-c9ee-47d3-99ea-5d4e861c4e5d" />
+    <img width="1258" height="415" alt="image" src="https://github.com/user-attachments/assets/d1387427-0232-4f80-bb4d-b2b093177e14" />
 
+### **Sprint de Cibersegurança**
+
+Durante a sprint de Cibersegurança, implementamos testes de segurança automatizados para garantir a integridade e a robustez do nosso código. A solução utiliza o **GitHub Actions** com **CodeQL** para realizar uma análise estática do código-fonte em busca de vulnerabilidades, como injeção de SQL e XSS. Além disso, o fluxo de trabalho de segurança inclui uma análise dinâmica com **OWASP ZAP**. Esses testes são executados a cada `push` ou `pull request`.
+
+Você pode encontrar o fluxo de trabalho de segurança no seguinte caminho: `.github/workflows/codeql.yml`.
 
 ### **Instruções de Configuração e Execução**
 
@@ -43,92 +42,100 @@ A **API RESTful** foi construída como o back-end do projeto, gerenciando os dad
 2.  **Configuração do Banco de Dados**:
     * Abra o arquivo `src/main/resources/application.properties`.
     * O projeto está configurado para rodar na minha conta pessoal do banco de dados Oracle. Caso queira executá-lo em outra conta, por favor, mude as credenciais (username e password) para as suas.
-    * 
-        ```properties
-        spring.datasource.url=jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
-        spring.datasource.username=RM99275
-        spring.datasource.password=180105
-        ```
+    ```properties
+    spring.datasource.url=jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
+    spring.datasource.username=RM99275
+    spring.datasource.password=180105
+    ```
 
 3.  **Execução da API**:
     * No terminal, na pasta raiz do projeto, execute o comando:
         ```bash
         mvn spring-boot:run
         ```
-    * A API será executada na porta `8080`.
+    * A API será executada na porta `8080` e estará pronta para aceitar requisições do aplicativo mobile.
 
-### **Exemplos de Requisições**
+### **Endpoints da API**
 
-A API oferece endpoints completos de CRUD para as entidades `Cliente` e `Ativo`.
+Os seguintes endpoints foram implementados para gerenciar clientes e ativos:
 
 #### **Endpoints de Clientes**
 
-* **Criar um novo Cliente (`POST`)**:
-    * **URL**: `http://localhost:8080/clientes`
-    * **Body (JSON)**:
+* **POST** `/clientes`
+    * **Descrição**: Cadastra um novo cliente no banco de dados.
+    * **Exemplo de Requisição**:
         ```json
         {
           "nome": "João da Silva",
           "email": "joao.silva@email.com",
-          "perfilInvestidor": "CONSERVADOR",
+          "senha": "senha123",
+          "perfilInvestidor": "MODERADO",
           "objetivo": "LONGO_PRAZO"
         }
         ```
-        * **Observação**: Os campos `perfilInvestidor` e `objetivo` devem ser preenchidos com um dos valores definidos na API para que a validação funcione corretamente.
-        * **Perfil do Investidor**: `CONSERVADOR`, `MODERADO`, `AGRESSIVO`
-        * **Objetivo**: `CURTO_PRAZO`, `MEDIO_PRAZO`, `LONGO_PRAZO`
-
-* **Listar todos os Clientes (`GET`)**:
-    * **URL**: `http://localhost:8080/clientes`
-
-* **Atualizar um Cliente (`PUT`)**:
-    * **URL**: `http://localhost:8080/clientes/{id}`
-    * **Body (JSON)**:
+* **POST** `/clientes/login`
+    * **Descrição**: Autentica um cliente com e-mail e senha.
+    * **Exemplo de Requisição**:
         ```json
         {
-          "id": 1,
-          "nome": "João da Silva ATUALIZADO",
-          "email": "novo.email@email.com",
-          "perfilInvestidor": "MODERADO",
-          "objetivo": "MEDIO_PRAZO"
+          "email": "joao.silva@email.com",
+          "senha": "senha123"
         }
         ```
-        * **Observação**: Os campos `perfilInvestidor` e `objetivo` devem ser preenchidos com um dos valores definidos na API para que a validação funcione corretamente.
-        * **Perfil do Investidor**: `CONSERVADOR`, `MODERADO`, `AGRESSIVO`
-        * **Objetivo**: `CURTO_PRAZO`, `MEDIO_PRAZO`, `LONGO_PRAZO`
-
-* **Deletar um Cliente (`DELETE`)**:
-    * **URL**: `http://localhost:8080/clientes/{id}`
+* **GET** `/clientes/{id}`
+    * **Descrição**: Busca um cliente por ID.
+    * **Exemplo de Requisição**: `http://localhost:8080/clientes/1`
+* **PUT** `/clientes/{id}`
+    * **Descrição**: Atualiza os dados de um cliente existente.
+    * **Exemplo de Requisição**:
+        ```json
+        {
+          "id": "5", 
+          "nome": "João da Silva ATUALIZADO",
+          "email": "joao.silva@email.com",
+          "senha": "nova_senha123",
+          "perfilInvestidor": "AGRESSIVO",
+          "objetivo": "CURTO_PRAZO"
+        }
+        ```
+* **DELETE** `/clientes/{id}`
+    * **Descrição**: Deleta um cliente por ID.
+    * **Exemplo de Requisição**: `http://localhost:8080/clientes/1`
 
 #### **Endpoints de Ativos**
 
-* **Criar um novo Ativo (`POST`)**:
-    * **URL**: `http://localhost:8080/ativos`
-    * **Body (JSON)**:
+* **POST** `/ativos`
+    * **Descrição**: Adiciona um novo ativo ao portfólio de um cliente.
+    * **Exemplo de Requisição**:
         ```json
         {
           "nome": "Tesouro Direto",
           "tipo": "RENDA_FIXA",
           "valor": 1000.00,
-          "descricao": "Ativo de renda fixa."
+          "descricao": "Ativo de renda fixa.",
+          "cliente": {
+            "id": 1
+          }
         }
         ```
-
-* **Listar todos os Ativos (`GET`)**:
-    * **URL**: `http://localhost:8080/ativos`
-
-* **Atualizar um Ativo (`PUT`)**:
-    * **URL**: `http://localhost:8080/ativos/{id}`
-    * **Body (JSON)**:
+* **GET** `/ativos/cliente/{clienteId}`
+    * **Descrição**: Retorna todos os ativos de um cliente específico.
+    * **Exemplo de Requisição**: `http://localhost:8080/ativos/cliente/1`
+* **GET** `/ativos/{id}`
+    * **Descrição**: Busca um ativo por ID.
+    * **Exemplo de Requisição**: `http://localhost:8080/ativos/1`
+* **PUT** `/ativos/{id}`
+    * **Descrição**: Atualiza os dados de um ativo existente.
+    * **Exemplo de Requisição**:
         ```json
         {
-          "id": 1,
+          "id": "5",
           "nome": "Fundo de Ações",
           "tipo": "RENDA_VARIAVEL",
           "valor": 2500.00,
           "descricao": "Fundo de investimentos de ações."
         }
         ```
-
-* **Deletar um Ativo (`DELETE`)**:
-    * **URL**: `http://localhost:8080/ativos/{id}`
+* **DELETE** `/ativos/{id}`
+    * **Descrição**: Deleta um ativo por ID.
+    * **Exemplo de Requisição**: `http://localhost:8080/ativos/1`
