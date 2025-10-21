@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
 @Entity
-@Table(name = "T_DATARIUM_ATIVO")
+@Table(name = "T_MOBILE_ATIVO")
 @Getter
 @Setter
 @NoArgsConstructor
