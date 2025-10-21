@@ -44,8 +44,8 @@ Você pode encontrar o fluxo de trabalho de segurança no seguinte caminho: `.gi
     * O projeto está configurado para rodar na minha conta pessoal do banco de dados Oracle. Caso queira executá-lo em outra conta, por favor, mude as credenciais (username e password) para as suas.
     ```properties
     spring.datasource.url=jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
-    spring.datasource.username=RM99275
-    spring.datasource.password=180105
+    spring.datasource.username=RM99500
+    spring.datasource.password=100504
     ```
 
 3.  **Execução da API**:
