@@ -213,5 +213,4 @@ O arquivo de configuração do fluxo de trabalho pode ser encontrado em `.github
 
 ---
 
-**Nota Importante:** Esta API está sendo utilizada como back-end para o projeto mobile Datarium (desenvolvido em React Native com Expo). Certifique-se de que esta API esteja em execução para que o aplicativo mob
-ile funcione corretamente. Acesse o aplicativo Mobile [nesse repositório](https://github.com/BrenoDevSilva/Datarium_Sprint2_Mobile).
+**Nota Importante:** Esta API está sendo utilizada como back-end para o projeto mobile Datarium (desenvolvido em React Native com Expo). Certifique-se de que esta API esteja em execução para que o aplicativo mobile funcione corretamente. Acesse o aplicativo Mobile [nesse repositório](https://github.com/BrenoDevSilva/Datarium_Sprint2_Mobile).
